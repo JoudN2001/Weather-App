@@ -7,6 +7,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 //Compnent
 import WeatherCard from "./WeatherCard";
 
+// use react's Suspense
+import { Suspense } from "react";
 
 const theme = createTheme({
   typography: {
@@ -16,16 +18,18 @@ const theme = createTheme({
 
 function App() {
   return (
-    <div
-      className="App"
-      dir="rtl"
-      style={{ display: "flex", alignItems: "center" }}
-    >
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <WeatherCard />
-      </ThemeProvider>
-    </div>
+    <Suspense fallback="loading">
+      <div
+        className="App"
+        dir="rtl"
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <WeatherCard />
+        </ThemeProvider>
+      </div>
+    </Suspense>
   );
 }
 

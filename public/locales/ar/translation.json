@@ -1,0 +1,15 @@
+{
+    "Amman" : "عمّان",
+    "Minimum" : "الصغرى",
+    "Maximum" : "الكبرى",
+    "light rain": "أمطار خفيفة",
+    "clear sky": "سماء صافية",
+    "few clouds": "غيوم قليلة",
+    "scattered clouds": "سحب متفرقة",
+    "broken clouds": "غيوم مكسورة",
+    "shower rain": "أمطار غزيرة",
+    "rain": "المطر",
+    "thunderstorm": "عاصفة رعدية",
+    "snow": "ثلج",
+    "mist": "ضباب"
+}

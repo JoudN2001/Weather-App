@@ -9,47 +9,70 @@ import Stack from "@mui/material/Stack";
 import CloudIcon from "@mui/icons-material/Cloud";
 
 // React
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 // External Libraries
 import axios from "axios";
 import moment from "moment";
-import "moment/min/locales"
-moment.locale("ar")
+import "moment/min/locales";
+import { useTranslation } from 'react-i18next';
+
 
 export default function WeatherCard() {
+  // ===== API REQUEST =====
   function Weather_API_Request() {
     axios
-      .get(
-        "https://api.openweathermap.org/data/2.5/weather?lat=31.963158&lon=35.930359&appid=637de888bb638b3542488fcdf2458cce",
-      )
-      .then((response) => {
-        const temp = Math.round(response.data.main.temp - 272.15);
-        const minTemp = Math.round(response.data.main.temp_max - 272.15);
-        const maxTemp = Math.round(response.data.main.temp_min - 272.15);
-        const description = response.data.weather[0].description;
-        const icon = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
-        const date = new Date();
-        setWeather({ temp, minTemp, maxTemp, description, icon, date });
-        console.log(temp, minTemp, maxTemp, description, date , icon);
-        console.log(response.data.weather[0].icon);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .get(
+      "https://api.openweathermap.org/data/2.5/weather?lat=31.963158&lon=35.930359&appid=637de888bb638b3542488fcdf2458cce",
+    )
+    .then((response) => {
+      const temp = Math.round(response.data.main.temp - 272.15);
+      const minTemp = Math.round(response.data.main.temp_max - 272.15);
+      const maxTemp = Math.round(response.data.main.temp_min - 272.15);
+      const description = response.data.weather[0].description;
+      const icon = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+      setWeather({ temp, minTemp, maxTemp, description, icon });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
+  
+  // ===== USE STATE HOOKS ======
   const [weatehr, setWeather] = useState({
     temp: null,
     minTemp: null,
     maxTemp: null,
     description: "",
     icon: "",
-    date: "",
   });
-  const [date, setDate] = useState(null)
-  useEffect(()=>{
-    setDate(moment().format("MMM Do YY"))
-    Weather_API_Request()}, []);
+  const [date, setDate] = useState(null);
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState('ar')
+  
+  moment.locale("ar");
+  useEffect(() => {
+    setDate(moment().format("MMM Do YY"));
+    i18n.changeLanguage("ar")
+    Weather_API_Request();
+  }, []);
+  
+  // ===== HANDEL EVENTS CLICK =====
+  function handelChangeLanguage(){
+    if(language === "en"){
+      i18n.changeLanguage("ar")
+      setLanguage("ar")
+      moment.locale("ar");
+      setDate(moment().format("MMM Do YY"));
+    }
+    else{
+      i18n.changeLanguage("en")
+      setLanguage("en")
+      moment.locale("en");
+      setDate(moment().format("MMM Do YY"));
+    }
+  }
+
   return (
     <Container maxWidth="sm">
       <Card
@@ -64,17 +87,17 @@ export default function WeatherCard() {
         <CardContent>
           {/* City & Time */}
           <Stack
-            direction="row"
+            direction={language === "en" ? "row-reverse" : "row" }
             sx={{
               alignItems: "flex-end",
               pb: 1.5,
             }}
           >
             <Typography variant="h2" fontWeight={400}>
-              عمّان
+              {t("Amman")}
             </Typography>
             <Typography variant="h5" fontWeight={300} px={1}>
-              {date}
+              {t(date)}
             </Typography>
           </Stack>
           <Divider sx={{ borderColor: "white" }} />
@@ -82,7 +105,7 @@ export default function WeatherCard() {
 
           {/* Degree & Description */}
           <Stack
-            direction="row"
+            direction={language === "en" ? "row-reverse" : "row" }
             spacing={2}
             sx={{
               justifyContent: "space-between",
@@ -96,10 +119,10 @@ export default function WeatherCard() {
                 <img src={weatehr.icon} alt="Weather Icon" />
               </Typography>
               <Typography variant="h5" fontWeight={300}>
-                {weatehr.description}
+                {t(weatehr.description)}
               </Typography>
               <Typography>
-                الصغرى {weatehr.maxTemp} | الكبرى {weatehr.minTemp}
+                {t("Minimum")} {weatehr.maxTemp} | {t("Maximum")} {weatehr.minTemp}
               </Typography>
             </Stack>
             {/* === Tempreture === */}
@@ -130,10 +153,11 @@ export default function WeatherCard() {
           zIndex: 99,
           top: 8,
           left: 0,
-          right: 245,
+          right: language === "en" ? -245 : 245,
         }}
+        onClick={handelChangeLanguage}
       >
-        EN
+        {language === "en" ? "العربية" : "EN"}
       </Button>
     </Container>
   );
