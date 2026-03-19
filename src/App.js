@@ -1,9 +1,12 @@
 import "./App.css";
+
+// Material UI Component
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 //Compnent
 import WeatherCard from "./WeatherCard";
+
 
 const theme = createTheme({
   typography: {
@@ -13,7 +16,11 @@ const theme = createTheme({
 
 function App() {
   return (
-    <div className="App" dir="rtl" style={{ display: "flex", alignItems: "center" }}>
+    <div
+      className="App"
+      dir="rtl"
+      style={{ display: "flex", alignItems: "center" }}
+    >
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <WeatherCard />

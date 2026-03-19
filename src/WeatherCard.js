@@ -1,5 +1,5 @@
+// Material UI Component
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -8,7 +8,48 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import CloudIcon from "@mui/icons-material/Cloud";
 
+// React
+import { useEffect, useState } from "react";
+
+// External Libraries
+import axios from "axios";
+import moment from "moment";
+import "moment/min/locales"
+moment.locale("ar")
+
 export default function WeatherCard() {
+  function Weather_API_Request() {
+    axios
+      .get(
+        "https://api.openweathermap.org/data/2.5/weather?lat=31.963158&lon=35.930359&appid=637de888bb638b3542488fcdf2458cce",
+      )
+      .then((response) => {
+        const temp = Math.round(response.data.main.temp - 272.15);
+        const minTemp = Math.round(response.data.main.temp_max - 272.15);
+        const maxTemp = Math.round(response.data.main.temp_min - 272.15);
+        const description = response.data.weather[0].description;
+        const icon = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+        const date = new Date();
+        setWeather({ temp, minTemp, maxTemp, description, icon, date });
+        console.log(temp, minTemp, maxTemp, description, date , icon);
+        console.log(response.data.weather[0].icon);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  const [weatehr, setWeather] = useState({
+    temp: null,
+    minTemp: null,
+    maxTemp: null,
+    description: "",
+    icon: "",
+    date: "",
+  });
+  const [date, setDate] = useState(null)
+  useEffect(()=>{
+    setDate(moment().format("MMM Do YY"))
+    Weather_API_Request()}, []);
   return (
     <Container maxWidth="sm">
       <Card
@@ -33,7 +74,7 @@ export default function WeatherCard() {
               عمّان
             </Typography>
             <Typography variant="h5" fontWeight={300} px={1}>
-              2026 4 يونيو
+              {date}
             </Typography>
           </Stack>
           <Divider sx={{ borderColor: "white" }} />
@@ -50,10 +91,16 @@ export default function WeatherCard() {
           >
             {/* Tempreture */}
             <Stack textAlign={"right"}>
-              <Typography variant="h1">26</Typography>
-              {/* TODO: img here  */}
-              <Typography variant="h6">سماء صافية</Typography>
-              <Typography>الصغرى 20 | الكبرى 30</Typography>
+              <Typography variant="h1">
+                {weatehr.temp}
+                <img src={weatehr.icon} alt="Weather Icon" />
+              </Typography>
+              <Typography variant="h5" fontWeight={300}>
+                {weatehr.description}
+              </Typography>
+              <Typography>
+                الصغرى {weatehr.maxTemp} | الكبرى {weatehr.minTemp}
+              </Typography>
             </Stack>
             {/* === Tempreture === */}
             {/* Icons (Cloud) */}
@@ -75,8 +122,8 @@ export default function WeatherCard() {
       <Button
         variant="text"
         size="small"
-        color="white"
         sx={{
+          color: "white",
           fontWeight: "500",
           fontSize: 20,
           position: "relative",
