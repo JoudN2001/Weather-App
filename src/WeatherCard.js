@@ -9,35 +9,35 @@ import Stack from "@mui/material/Stack";
 import CloudIcon from "@mui/icons-material/Cloud";
 
 // React
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // External Libraries
 import axios from "axios";
 import moment from "moment";
 import "moment/min/locales";
-import { useTranslation } from 'react-i18next';
-
+import { useTranslation } from "react-i18next";
 
 export default function WeatherCard() {
   // ===== API REQUEST =====
   function Weather_API_Request() {
+    const API_KEY = process.env.REACT_APP_DEMO_API_KEY;
     axios
-    .get(
-      "https://api.openweathermap.org/data/2.5/weather?lat=31.963158&lon=35.930359&appid=637de888bb638b3542488fcdf2458cce",
-    )
-    .then((response) => {
-      const temp = Math.round(response.data.main.temp - 272.15);
-      const minTemp = Math.round(response.data.main.temp_max - 272.15);
-      const maxTemp = Math.round(response.data.main.temp_min - 272.15);
-      const description = response.data.weather[0].description;
-      const icon = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
-      setWeather({ temp, minTemp, maxTemp, description, icon });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=31.963158&lon=35.930359&appid=${API_KEY}`,
+      )
+      .then((response) => {
+        const temp = Math.round(response.data.main.temp - 272.15);
+        const minTemp = Math.round(response.data.main.temp_max - 272.15);
+        const maxTemp = Math.round(response.data.main.temp_min - 272.15);
+        const description = response.data.weather[0].description;
+        const icon = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
+        setWeather({ temp, minTemp, maxTemp, description, icon });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
-  
+
   // ===== USE STATE HOOKS ======
   const [weatehr, setWeather] = useState({
     temp: null,
@@ -48,26 +48,25 @@ export default function WeatherCard() {
   });
   const [date, setDate] = useState(null);
   const { t, i18n } = useTranslation();
-  const [language, setLanguage] = useState('ar')
-  
+  const [language, setLanguage] = useState("ar");
+
   moment.locale("ar");
   useEffect(() => {
     setDate(moment().format("MMM Do YY"));
-    i18n.changeLanguage("ar")
+    i18n.changeLanguage("ar");
     Weather_API_Request();
   }, []);
-  
+
   // ===== HANDEL EVENTS CLICK =====
-  function handelChangeLanguage(){
-    if(language === "en"){
-      i18n.changeLanguage("ar")
-      setLanguage("ar")
+  function handelChangeLanguage() {
+    if (language === "en") {
+      i18n.changeLanguage("ar");
+      setLanguage("ar");
       moment.locale("ar");
       setDate(moment().format("MMM Do YY"));
-    }
-    else{
-      i18n.changeLanguage("en")
-      setLanguage("en")
+    } else {
+      i18n.changeLanguage("en");
+      setLanguage("en");
       moment.locale("en");
       setDate(moment().format("MMM Do YY"));
     }
@@ -87,7 +86,7 @@ export default function WeatherCard() {
         <CardContent>
           {/* City & Time */}
           <Stack
-            direction={language === "en" ? "row-reverse" : "row" }
+            direction={language === "en" ? "row-reverse" : "row"}
             sx={{
               alignItems: "flex-end",
               pb: 1.5,
@@ -105,7 +104,7 @@ export default function WeatherCard() {
 
           {/* Degree & Description */}
           <Stack
-            direction={language === "en" ? "row-reverse" : "row" }
+            direction={language === "en" ? "row-reverse" : "row"}
             spacing={2}
             sx={{
               justifyContent: "space-between",
@@ -122,7 +121,8 @@ export default function WeatherCard() {
                 {t(weatehr.description)}
               </Typography>
               <Typography>
-                {t("Minimum")} {weatehr.maxTemp} | {t("Maximum")} {weatehr.minTemp}
+                {t("Minimum")} {weatehr.maxTemp} | {t("Maximum")}{" "}
+                {weatehr.minTemp}
               </Typography>
             </Stack>
             {/* === Tempreture === */}
