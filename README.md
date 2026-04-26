@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# 🌤️ React Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive, bilingual weather application built with React. This project demonstrates how to integrate third-party REST APIs, manage state, and implement seamless internationalization (i18n) for Arabic and English users.
 
-## Available Scripts
+**🌍 Live Demo:** https://open-weather-api-app-live.netlify.app
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📸 Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| English Version | النسخة العربية |
+| :---: | :---: |
+| <img src="./public/Screenshot/Screenshot EN.png" alt="Weather App English" width="400"/> | <img src="./public/Screenshot/Screenshot AR.png" alt="تطبيق الطقس بالعربية" width="400"/> |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## ✨ Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Real-time Weather Data:** Fetches current temperature, min/max temperatures, and weather conditions for Amman using the **OpenWeather API**.
+* **Full Localization (i18n):** Seamlessly switch between English and Arabic.
+* **Dynamic UI Direction:** The layout automatically flips between LTR (Left-to-Right) and RTL (Right-to-Left) based on the selected language.
+* **Localized Dates:** Displays the current date formatted specifically for the user's selected language.
+* **Modern UI:** Clean, glass-morphism inspired design built with **Material-UI (MUI)**.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧠 What I Learned & Accomplished
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This project was a major stepping stone for me in transitioning from building static React components to dynamic, data-driven applications. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Here is a breakdown of my learning process:
 
-### `npm run eject`
+1. **API Testing & Integration:** Before writing code, I learned how to use **Postman** to test API endpoints (like the Aladhan API and OpenWeather API) to understand JSON input/output structures.
+2. **Mastering HTTP Requests:** I transitioned from using the native Fetch API (learned during FreeCodeCamp) to using the **Axios** library, which made handling requests and responses much cleaner and easier to manage.
+3. **Internationalization (i18n):** I successfully implemented the `i18next` and `react-i18next` libraries. This taught me how to manage translation files and dynamically update the entire app's text and layout direction (`row` vs `row-reverse`) without reloading the page.
+4. **Date Formatting:** I integrated **Moment.js** to handle complex date formatting and locale switching, moving away from the limitations of the native JS `Date` object.
+5. **UI Frameworks:** Strengthened my skills in using **Material-UI (MUI)** components like `Card`, `Stack`, and `Typography` to build a responsive interface quickly.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠️ Tech Stack
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* **Frontend:** React.js
+* **Styling & UI:** Material-UI (MUI), CSS
+* **HTTP Client:** Axios
+* **Localization:** i18next, react-i18next
+* **Date Handling:** Moment.js
+* **API:** OpenWeatherMap API
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🚀 How to Run Locally
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To run this project on your local machine, follow these steps:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/JoudN2001/Weather-App.git
 
-### Code Splitting
+2. Navigate to the project directory:
+    ```bash
+    cd Weather-App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. Install the dependencies:
+    ```bash
+    npm install
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. Start the development server:
+    ```bash
+   npm start
+5.  Open http://localhost:3000 to view it in your browser.
